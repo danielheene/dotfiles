@@ -1,0 +1,11 @@
+startup_message off
+
+defscrollback 1000
+
+hardstatus alwayslastline
+hardstatus string ' '
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c%{g}]'
+
+termcapinfo xterm* ti@:te
+
+screen -t zsh
