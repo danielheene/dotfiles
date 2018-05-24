@@ -25,3 +25,4 @@ zplug load
 
 # OTHERS
 tput rmam       #disable line wrapping
+
