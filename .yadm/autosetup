@@ -12,6 +12,8 @@ fi
 if ! command -v git > /dev/null ;then 
     echo "xcode commandline tools are missing"
     xcode-select --install
+else
+    echo "xcode commandline tools are installed"
 fi
 
 if [[ ! -d ~/.yadm ]];then
