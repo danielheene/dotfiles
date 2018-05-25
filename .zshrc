@@ -1,5 +1,4 @@
 # EXPORTS
-export DOTFILES=~/.dotfiles         # dotfile dir
 export EDITOR='nano'                # setup default editor
 export GPG_TTY=$(tty)               # enable prompt for gpg passphrase
 export HISTFILE=~/.zsh_history      # save history to this file
