@@ -33,3 +33,4 @@ alias bcu='brew cu -af -y'
 setopt  appendhistory               # append history to $HISTFILE
 setopt  sharehistory                # share history between terminals immediately
 tput    rmam                        # disable line wrapping in shell output
+
