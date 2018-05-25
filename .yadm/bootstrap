@@ -29,6 +29,7 @@ echo "looking for nvm"
 if [[ ! -f ~/.nvm/nvm.sh ]]; then
   echo "nvm doesn't exist -> installing nvm"
   curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  yadm checkout HEAD -- ~/.zshrc
 else
   echo "nvm already installed -> skipping"
 fi
