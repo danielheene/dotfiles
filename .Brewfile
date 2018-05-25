@@ -7,7 +7,6 @@ brew "http-server"
 brew "mas"
 brew "rclone"
 brew "speedtest-cli"
-brew "yadm"
 brew "yarn", args: ["without-node"]
 brew "zsh"
 cask "appcleaner"
