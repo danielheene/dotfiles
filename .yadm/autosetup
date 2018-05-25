@@ -1,11 +1,17 @@
 #!/bin/bash
 
+
 if ! command -v yadm > /dev/null ;then 
     echo "installing yadm"
     sudo mkdir -p -m 775 /usr/local/bin
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 else
     echo "skipping yadm installation" 
+fi
+
+if ! command -v git > /dev/null ;then 
+    echo "xcode commandline tools are missing"
+    xcode-select --install
 fi
 
 if [[ ! -d ~/.yadm ]];then
