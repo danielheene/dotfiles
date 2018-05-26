@@ -62,8 +62,3 @@ echo "BOOTSTRAPPER STARTED!"
 # fi
 
 # ## install zplug plugins
-
-
-
-
-# curl -fsSL https://raw.githubusercontent.com/danielheene/.dotfiles/bootstrapping/.yadm/autosetup | sudo bash
