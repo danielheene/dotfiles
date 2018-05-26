@@ -8,12 +8,12 @@ TASKS=('xcode-tools' 'yadm' 'dotfiles')
 logger() {
   [[ -z $TASK_NAME ]] || (tput bold; tput setaf 4; printf " ${TASK_NAME}: "; tput sgr0)
   printf "$1"
-  [[ -z $2 ]] || (tput setaf 8; tput dim; printf " [+$2s]"; tput sgr0)
+  [[ -z $2 ]] || (tput setaf 8; printf " [+$2s]"; tput sgr0)
   printf "\n"
 }
 
 indent() {
-  tput dim
+  tput setaf 8
   sed 's/^/   /'
   tput sgr0
 }
