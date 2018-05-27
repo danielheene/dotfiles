@@ -1,4 +1,5 @@
 # EXPORTS
+export DOTFILES=~/.dotfiles
 export EDITOR='nano'                # setup default editor
 export GPG_TTY=$(tty)               # enable prompt for gpg passphrase
 export HISTFILE=~/.zsh_history      # save history to this file
@@ -14,7 +15,7 @@ zplug zsh-users/zsh-completions, from:github
 zplug lukechilds/zsh-nvm, from:github
 zplug denysdovhan/spaceship-prompt, use:spaceship.zsh, from:github, as:theme
 zplug plugins/osx, from:oh-my-zsh
-source ~/.yadm/zplug.plugin-installer.zsh
+source $DOTFILES/zplug.plugin-installer.zsh
 zplug load
 
 # ALIASES
