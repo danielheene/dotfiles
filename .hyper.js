@@ -30,7 +30,7 @@ module.exports = {
       lightWhite: '#ffffff',
     },
 
-    shell: '',
+    shell: '/usr/local/bin/zsh',
     shellArgs: ['--login'],
     env: {},
     bell: false,

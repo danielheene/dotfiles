@@ -1,0 +1,122 @@
+#!/bin/bash
+
+CURRENT_PID=$$
+CURRENT_USER=$(whoami)
+CURRENT_GROUP=$(id -g -n ${CURRENT_USER})
+TASKS=('xcode-clt' 'yadm' 'dotfiles')
+
+logger() {
+  [[ -z $TASK_NAME ]] || (tput bold; tput setaf 4; printf " ${TASK_NAME}: "; tput sgr0)
+  printf "$1"
+  [[ -z $2 ]] || (tput setaf 8; printf " [+$2s]"; tput sgr0)
+  printf "\n"
+}
+
+indent() {
+  tput setaf 8
+  sed 's/^/   /'
+  tput sgr0
+}
+
+kill() {
+  ERROR_SOURCE=$TASK_NAME; TASK_NAME=""
+  logger "$(tput setaf 3; tput bold)\n ⚠️  ${ERROR_SOURCE}: ERROR$(tput sgr0)\n something unexpected happend!\n " && sudo kill -s TERM ${CURRENT_PID}
+}
+
+tput bold; tput setaf 1
+printf "\n .dotfiles environment installer"
+printf "\n ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺"
+printf "\n"
+tput sgr0
+
+# XCODE COMMAND LINE TOOLS
+install_xcode_clt() {
+  # adapted from https://brew.sh/
+  TASK_START=$SECONDS
+  TASK_NAME=${TASKS[0]}
+  MESSAGE_SKIP="skipping - command line tools are already installed"
+  MESSAGE_INSTALL="installing command line tools (this may take a while)"
+  MESSAGE_SUCCESS="success - command line tools installation finished"
+  MESSAGE_FALLBACK="cli installation failed, falling back to gui installation"
+
+  xcode-select -p &> /dev/null
+  if [ $? -eq 0 ]; then
+    logger "${MESSAGE_SKIP}"
+  else
+    logger "${MESSAGE_INSTALL}"
+
+    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    softwareupdate -i "$(softwareupdate -l | grep -B 1 -E "Command Line (Developer|Tools)" | awk -F"*" '/^ +\\*/ {print $2}' | sed 's/^ *//' | tail -n1)" | indent
+    rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    sudo xcode-select --switch "/Library/Developer/CommandLineTools" | indent
+
+    xcode-select -p &> /dev/null
+    if [ $? -eq 0 ]; then
+      logger "${MESSAGE_SUCCESS}" "$(($SECONDS - $TASK_START))"
+    else
+      logger "${MESSAGE_FALLBACK}"
+
+      sudo xcode-select --install | indent
+      echo -n "press any key when the installation has completed "; read $KEY; echo -en "\033[1A\033[2K"
+
+      xcode-select -p &> /dev/null
+      [[ $? -eq 0 ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
+    fi
+  fi
+
+  xcode-select -p &> /dev/null; [[ $? -eq 0 ]] || kill
+}
+install_xcode_clt
+
+
+# YADM
+install_yadm() {
+  TASK_START=$SECONDS
+  TASK_NAME=${TASKS[1]}
+  MESSAGE_SKIP="skipping - yadm is already installed"
+  MESSAGE_INSTALL="installing yadm"
+  MESSAGE_SUCCESS="success - yadm is installed now"
+
+  command -v yadm &> /dev/null
+  if [ $? -eq 0 ]; then
+    logger "${MESSAGE_SKIP}"
+  else
+    logger "${MESSAGE_INSTALL}"
+
+    [ -d /usr/local/bin ] || sudo mkdir -p /usr/local/bin
+    sudo chmod 755 /usr/local/bin
+    sudo chown ${CURRENT_USER}:${CURRENT_GROUP} /usr/local/bin
+    curl -fLo /usr/local/bin/yadm "https://github.com/TheLocehiliosan/yadm/raw/master/yadm" --silent | indent
+    [ -f /usr/local/bin/yadm ] && chmod a+x /usr/local/bin/yadm
+
+    command -v yadm &> /dev/null
+    [[ $? -eq 0 ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
+  fi
+
+  command -v yadm &> /dev/null; [[ ! $? -eq 0 ]] && kill
+}
+install_yadm
+
+# DOTFILES
+install_dotfiles() {
+  TASK_START=$SECONDS
+  TASK_NAME=${TASKS[2]}
+  MESSAGE_SKIP="skipping - dotfiles are already installed"
+  MESSAGE_INSTALL="installing dotfiles"
+  MESSAGE_SUCCESS="success - dotfiles are installed now"
+
+  if [[ -d ~/.yadm ]]; then
+    logger "${MESSAGE_SKIP}"
+  else
+    logger "${MESSAGE_INSTALL}"
+
+    /usr/local/bin/yadm clone "https://github.com/danielheene/.dotfiles.git" 2> /dev/null | indent
+
+    [[ -d ~/.yadm ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
+  fi
+
+  [[ -d ~/.yadm ]] || kill
+}
+install_dotfiles
+
+printf "\n"
