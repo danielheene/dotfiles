@@ -18,6 +18,7 @@ source ~/.yadm/zplug.plugin-installer.zsh
 zplug load
 
 # ALIASES
+alias git="/usr/local/bin/git"
 alias l="ls -lhG"
 alias ll="ls -lhAG"
 alias lsl="ls -lhFAG | less"
