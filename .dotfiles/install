@@ -20,7 +20,7 @@ indent() {
 
 kill() {
   ERROR_SOURCE=$TASK_NAME; TASK_NAME=""
-  logger "$(tput setaf 3; tput bold)\n ⚠️  ${ERROR_SOURCE}: ERROR$(tput sgr0)\n something unexpected happend!\n " && sudo kill -s TERM ${CURRENT_PID}
+  logger "$(tput setaf 3; tput bold)\n ⚠️  ${ERROR_SOURCE}: ERROR$(tput sgr0)\n something unexpected happend! $(tput sgr0)\n" && sudo kill -s TERM ${CURRENT_PID}
 }
 
 tput bold; tput setaf 1
@@ -97,7 +97,14 @@ install_yadm() {
 }
 install_yadm
 
+
 # DOTFILES
+run_bootstrap() {
+  # trigger bootstrap if nothing failed
+  TASK_NAME="installer"
+  logger "everything successful - starting bootstrap! 👍"
+  /usr/local/bin/yadm bootstrap &> /dev/null
+}
 install_dotfiles() {
   TASK_START=$SECONDS
   TASK_NAME=${TASKS[2]}
@@ -110,13 +117,13 @@ install_dotfiles() {
   else
     logger "${MESSAGE_INSTALL}"
 
-    /usr/local/bin/yadm clone "https://github.com/danielheene/.dotfiles.git" 2> /dev/null | indent
+    /usr/local/bin/yadm clone --no-bootstrap "https://github.com/danielheene/.dotfiles.git" 2> /dev/null | indent
 
     [[ -d ~/.yadm ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
+    run_bootstrap
   fi
 
   [[ -d ~/.yadm ]] || kill
 }
 install_dotfiles
-
-printf "\n"
+printf "\n\n"
