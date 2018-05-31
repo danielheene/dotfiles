@@ -10,6 +10,7 @@ export SAVEHIST=50000               # number of history lines on disk
 # ZPLUG SETUP
 source ~/.zplug/init.zsh
 zplug mafredri/zsh-async, from:github
+zplug zsh-users/zsh-syntax-highlighting, from:github
 zplug zsh-users/zsh-autosuggestions, from:github
 zplug zsh-users/zsh-completions, from:github
 zplug lukechilds/zsh-nvm, from:github
