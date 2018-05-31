@@ -1,8 +1,67 @@
-# dotfiles
+# dotfiles 
 
 # Initial setup
 Install __xcode command line tools__, __yadm__ and load this repository automatically by running the following command:
 
-```
+```sh
 $ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.yadm/lib/install | bash
 ```
+
+
+
+## Installation
+
+
+
+### Tasks
+- __remote script:__
+  - install xcode via cli (incl.gui fallback)
+  - install yadm from github
+  - install this repo and run bootstrap
+
+- __bootstrap:__
+  - homebrew:
+    - installation
+    - install brewfile contents (brew, cask, mas)
+  - zsh:
+    - zsh installation
+    - install zplug
+    - zplug packages
+    - essentials:
+      - ssh + gpg
+        - load keys
+        - load ssh config
+      - path management
+        - setup correct paths
+      - global exports
+        - TZ
+        - IPv4
+        - IPv6
+        - CODEDIR
+      - aliases
+        - ls + co
+      - setup history
+      - screen setup
+      - 
+    - nice to haves:
+      - shell colorscheme printing function
+      - 
+  - install hyper 
+    - configuration
+  - nodejs
+    - nvm installation
+    - nodejs lts installation
+    - npm latest installation
+    - yarn latest installation
+    - configure lts as global default
+    - ?global packages?
+
+
+
+
+## Resources
+Links to external resources:
+### Fonts
+- [Hack for Powerline](https://github.com/source-foundry/Hack)
+- [Droid Sans Mono for Powerline](https://github.com/powerline/fonts)
+- [Monaco for Powerline](https://gist.github.com/epegzz/1634235/fe5100a91157c5d0f0c8b7b6dedd126c6396ae19)
