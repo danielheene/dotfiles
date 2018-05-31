@@ -4,7 +4,7 @@ module.exports = {
     fontSize: 14,
     fontFamily: '"Droid Sans Mono for Powerline", Menlo, monospace',
     cursorColor: 'rgba(248,28,229,1)',
-    cursorShape: 'UNDERLINE',
+    cursorShape: 'BLOCK',
     cursorBlink: true,
     foregroundColor: '#fff',
     backgroundColor: '#000',
