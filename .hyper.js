@@ -2,7 +2,7 @@ module.exports = {
   config: {
     updateChannel: 'stable',
     fontSize: 14,
-    fontFamily: '"Droid Sans Mono for Powerline", Menlo, monospace',
+    fontFamily: 'Hack, "Droid Sans Mono for Powerline", Menlo, monospace',
     cursorColor: 'rgba(248,28,229,1)',
     cursorShape: 'BLOCK',
     cursorBlink: true,
