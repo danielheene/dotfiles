@@ -1,15 +1,13 @@
+// -- hyper-stylesheet-hash:7a51a75fa512e441a6e42a51b99216b7 --
 module.exports = {
   config: {
     updateChannel: 'stable',
     fontSize: 14,
     fontFamily: 'Hack, "Droid Sans Mono for Powerline", Menlo, monospace',
-    cursorColor: 'rgba(248,28,229,1)',
+    cursorColor: 'rgba(248,28,229,0.4)',
     cursorShape: 'BLOCK',
     cursorBlink: true,
-    foregroundColor: '#fff',
-    backgroundColor: '#000',
-    borderColor: '#333',
-    padding: '0 10px',
+    padding: '3px 10px',
 
     colors: {
       black: '#000000',
@@ -30,6 +28,13 @@ module.exports = {
       lightWhite: '#ffffff',
     },
 
+    css: `
+      .tab_tab > .tab_text {
+        font-weight: 800;
+        color: #fff;
+      }
+    `,
+
     shell: '/usr/local/bin/zsh',
     shellArgs: ['--login'],
     env: {},
@@ -38,14 +43,30 @@ module.exports = {
 
     hyperBorder: {
       animate: {
-        duration: '3s',
+        duration: '6s',
       },
+      borderColors: [
+        'rgba(255, 106, 193, 0.2)',
+        'rgba(255, 106, 193, 0.4)'
+      ],
       borderWidth: '2px',
+    },
+
+    hyperTabs: {
+      activityPulse: true,
+      activityColor: '#ecebbd',
+      border: true,
+      closeAlign: 'right',
+      trafficButtons: false,
+      tabIcons: true,
+      tabIconsColored: false,
     },
   },
 
   plugins: [
-    'hyperborder',
-    'hyper-snazzy'
+    // 'hyperborder',
+    'hyperminimal',
+    'hyper-snazzy',
+    'hyper-tabs-enhanced',
   ],
 };
