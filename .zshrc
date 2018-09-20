@@ -1,4 +1,5 @@
 # EXPORTS
+export PATH="$PATH:/usr/local/bin"
 export DOTFILES=~/.dotfiles
 export EDITOR='nano'                # setup default editor
 export GPG_TTY=$(tty)               # enable prompt for gpg passphrase
