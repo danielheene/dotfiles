@@ -1,5 +1,6 @@
 // -- hyper-stylesheet-hash:7a51a75fa512e441a6e42a51b99216b7 --
 module.exports = {
+
   config: {
     updateChannel: 'stable',
     fontSize: 14,
