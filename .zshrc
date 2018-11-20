@@ -40,4 +40,3 @@ setopt HIST_SAVE_NO_DUPS         # don't add duplicates to history
 setopt HIST_VERIFY               # don't execude on history expansion
 setopt INC_APPEND_HISTORY        # write immediately to history
 setopt SHARE_HISTORY             # share history between sessions
-
