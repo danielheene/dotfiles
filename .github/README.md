@@ -61,7 +61,12 @@ $ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.yadm
 
 ## Resources
 Links to external resources:
+
 ### Fonts
 - [Hack for Powerline](https://github.com/source-foundry/Hack)
 - [Droid Sans Mono for Powerline](https://github.com/powerline/fonts)
 - [Monaco for Powerline](https://gist.github.com/epegzz/1634235/fe5100a91157c5d0f0c8b7b6dedd126c6396ae19)
+
+### Wallpapers
+- [pavbca.com-minimal1.png](http://pavbca.com/walls/minimalist-wallpapers)
+- [pavbca.com-minimal2.jpg](http://pavbca.com/walls/minimalist-wallpapers)
