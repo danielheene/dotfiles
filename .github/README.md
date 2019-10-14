@@ -1,10 +1,10 @@
 # dotfiles 
 
 # Initial setup
-Install __xcode command line tools__, __yadm__ and load this repository automatically by running the following command:
+Install __xcode command line tools__, __brew__, __yadm__ and load this repository automatically by running the following command:
 
-```sh
-$ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.yadm/lib/install | bash
+```bash
+$ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.dotfiles/install | bash
 ```
 
 
@@ -69,4 +69,4 @@ Links to external resources:
 
 ### Wallpapers
 - [pavbca.com-minimal1.png](http://pavbca.com/walls/minimalist-wallpapers)
-- [pavbca.com-minimal2.jpg](http://pavbca.com/walls/minimalist-wallpapers)
+- [hyper-pokemon-gengar.png](https://github.com/klaussinani/hyper-pokemon)
