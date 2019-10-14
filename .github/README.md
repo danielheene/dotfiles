@@ -59,8 +59,7 @@ $ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.dotf
 
 
 
-## Resources
-Links to external resources:
+## External Resources
 
 ### Fonts
 - [Hack for Powerline](https://github.com/source-foundry/Hack)
