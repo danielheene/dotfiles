@@ -8,7 +8,7 @@ export HISTSIZE=50000                                                           
 export SAVEHIST=50000                                                           # number of history lines on disk  
 export LANG=en_US.UTF-8                                                         # set language to en_US
 export LC_ALL=en_US.UTF-8                                                       # set all locale values to en_US
-export ICLOUD="${HOME}/Library/Mobile Documents/com~apple~CloudDocs/"          # iCloud drive folder
+export ICLOUD="${HOME}/Library/Mobile Documents/com~apple~CloudDocs/"           # iCloud drive folder
 export PATH="$PATH:/usr/local/bin"                                              # add /usr/local/bin to path explicitly
 
 # GO SETUP

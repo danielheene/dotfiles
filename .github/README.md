@@ -61,6 +61,9 @@ $ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.dotf
 
 ## External Resources
 
+### Keyboard Layouts
+- [German No Dead Keys](https://github.com/sebroeder/osx-keyboard-layout-german-no-deadkeys)
+
 ### Fonts
 - [Hack for Powerline](https://github.com/source-foundry/Hack)
 - [Droid Sans Mono for Powerline](https://github.com/powerline/fonts)
