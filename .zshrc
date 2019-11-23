@@ -48,6 +48,11 @@ alias serve='http-server . -c-1'
 # OSX ALIASES
 alias trash='mvtrash'
 
+# DOCKER ALIASES
+alias dcu='docker-compose up'
+alias dcr='docker-compose restart'
+alias dcd='docker-compose down'
+
 # BREW ALIASES
 alias bfu="brew upgrade --fetch-HEAD --ignore-pinned"
 alias bcu="brew cu --all --yes --force --cleanup"
