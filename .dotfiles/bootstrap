@@ -1,54 +1,38 @@
 #!/bin/bash
 
-echo "BOOTSTRAPPER STARTED!"
+echo ""
+echo "starting bootstrap"
+echo ""
 
-# ## install brew
-# if ! command -v brew >/dev/null 2>&1; then
-#     echo "installing brew"
-#     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# else
-#   echo "brew already installed"
-# fi
+## install brew
+if ! command -v brew >/dev/null 2>&1; then
+    echo "brew: installing"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  echo "brew: skipped - brew is already installed"
+fi
 
-# ## install brewfile
-# echo "looking for global Brewfile"
-# if [[ -f ~/.Brewfile ]];then
-#     echo "global Brewfile found"
-#     echo "looking for missing dependencies"
+## install brewfile
+if [[ -f ~/.dotfiles/Brewfile ]];then
+    if ! brew bundle check --file="${HOME}/.dotfiles/Brewfile" > /dev/null; then
+      echo "brewfile: installing - adjusting desired dependencies"
+      brew bundle install --file="${HOME}/.dotfiles/Brewfile"
+    else
+      echo "brewfile: skipping - everythings seems to be fine"
+    fi
+else
+  echo "brewfile: skipping - no brewfile found"
+fi
 
-#     if ! brew bundle check --no-upgrade --global > /dev/null; then
-#       echo "installing brew packages"
-#       brew bundle exec -- bundle install --global --verbose
-#     else
-#       echo "everythings seems to be fine"
-#     fi
-# else
-#   echo "skipping: no global Brewfile found"
-# fi
-
-# ## install nvm
-# echo "looking for nvm"
-# if [[ ! -f ~/.nvm/nvm.sh ]]; then
-#   echo "nvm doesn't exist -> installing nvm"
-#   curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | PROFILE=/dev/null bash
-#   yadm checkout HEAD -- ~/.zshrc
-# else
-#   echo "nvm already installed -> skipping"
-# fi
-# echo "loading nvm"
-# \. "$HOME/.nvm/nvm.sh"
-
-
-# ## set default nvm version
-# echo "install latest node version"
-# nvm install node --latest-npm 1>/dev/null
-# echo "setting latest node as default"
-# nvm alias default node 1>/dev/null
-# echo "switching to latest version"
-# nvm use default 1>/dev/null
-
-# # ## install global dependencies
-
+## install latest node lts as default via nvm
+echo "nvm: installing latest lts node version"
+nvm install --lts
+echo "nvm: setting latest lts node as global default"
+nvm alias default node
+echo "nvm: switching to latest lts"
+nvm use default
+echo "nvm: installing latest npm version"
+nvm install-latest-npm
 
 # # set zsh as default shell
 # chsh -s /usr/local/bin/zsh
