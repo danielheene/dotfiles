@@ -1,9 +1,9 @@
 # dotfiles 
 
-> 
+> Basic configuration for my macos system including dotfiles, terminal and development related configurations.
 
-# Setup
-Executing the following command will run the __[configure](./dofiles/configure)__ task and install __xcode command line tools__, __yadm__ (includes checking out this repository as sources) and run the initial __[bootstrap](.dotfiles/bootstrap)__ script. 
+## Setup
+Executing the following command will run the __[configure](https://github.com/danielheene/dotfiles/blob/master/.dotfiles/configure)__ task which installs the __xcode command line tools__, __yadm__ (including to check out this repository for yadm) and run the initial __[bootstrap](https://github.com/danielheene/dotfiles/blob/master/.dotfiles/bootstrap)__ script. 
 
 ```bash
 $ curl -fsSL https://raw.githubusercontent.com/danielheene/dotfiles/master/.dotfiles/configure | bash
