@@ -1,6 +1,7 @@
 # EXPORTS
 export DOTFILES="${HOME}/.dotfiles"                                             # dotfiles directory
 export NVM_AUTO_USE=true                                                        # look for .nvmrc on directoy changes
+export NVM_SYMLINK_CURRENT=true                                                 # symlink active node version to $NVM_DIR/current
 export EDITOR='nano'                                                            # setup default editor
 export GPG_TTY=$(tty)                                                           # enable prompt for gpg passphrase
 export HISTFILE="${HOME}/.zsh_history"                                          # save history to this file
@@ -71,3 +72,5 @@ setopt HIST_SAVE_NO_DUPS         # don't add duplicates to history
 setopt HIST_VERIFY               # don't execude on history expansion
 setopt INC_APPEND_HISTORY        # write immediately to history
 setopt SHARE_HISTORY             # share history between sessions
+
+# eval "$(starship init zsh)"
