@@ -4,6 +4,7 @@
 	email = mail@danielheene.de
 [core]
 	excludesfile = /Users/daniel/.gitignore_global
+	autocrlf = input
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

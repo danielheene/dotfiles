@@ -115,28 +115,31 @@ install_dotfiles() {
     /usr/local/bin/yadm clone --no-bootstrap "https://github.com/danielheene/.dotfiles.git" 2> /dev/null | indent
 
     [[ -d ~/.yadm ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
-    RUN_BOOTSTRAP=true
   fi
 
   [[ -d ~/.yadm ]] || kill
 }
 install_dotfiles
 
-run_bootstrap() {
+install_brew() {
   TASK_START=$SECONDS
   TASK_NAME=${TASKS[3]}
-  MESSAGE_SKIP="skipping - dotfiles repository is already configured"
-  MESSAGE_INSTALL="starting initial bootstrap task"
-  MESSAGE_SUCCESS="success - dotfiles repository is bootstrapped now"
+  MESSAGE_SKIP="skipping - brew is already installed"
+  MESSAGE_INSTALL="starting brew installation"
+  MESSAGE_SUCCESS="success - brew is successfully installed"
 
-  if [ ${RUN_BOOTSTRAP} = true ]; then
-    logger "${MESSAGE_INSTALL}"
-    bash ${HOME}/.dotfiles/bootstrap
-    logger "${MESSAGE_SUCCESS}"
-  else
+  if [[ -x "$(command -v brew)" ]]; then 
     logger "${MESSAGE_SKIP}"
+  else
+    logger "${MESSAGE_INSTALL}"
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" 2> /dev/null | indent
+
+    [[ -x "$(command -v brew)" ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
   fi
+
+  [[ -x "$(command -v brew)" ]] || kill
 }
-run_bootstrap
+install_brew
 
 printf "\n\n"
