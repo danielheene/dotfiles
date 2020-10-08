@@ -46,7 +46,7 @@ module_nodejs_yarn_global_install() {
 
     rm -rf ${YARN_DIR}
     mkdir -p ${YARN_DIR}
-    ln -s "${BASH_SOURCE:-$0}/global-packages.json" "${YARN_DIR}/package.json"
+    ln -s "${DOTFILES_MODULE_DIR}/nodejs/global-packages.json" "${YARN_DIR}/package.json"
     yarn install --non-interactive --force --update-checksums
 }
 
@@ -88,10 +88,8 @@ module_nodejs_load() {
     module_nodejs_node_install
 }
 
-module_nodejs_update() {
+module_nodejs_upgrade() {
     module_nodejs_nvm_update
     module_nodejs_nvm_configure
     module_nodejs_node_upgrade
 }
-
-echo $(dirname ${BASH_SOURCE:-$0})
