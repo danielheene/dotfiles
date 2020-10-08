@@ -143,4 +143,4 @@ install_brew() {
 }
 install_brew
 
-printf "\n\n"
+printf "\n"

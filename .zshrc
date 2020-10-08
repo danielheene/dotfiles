@@ -21,6 +21,10 @@ dot install wallpaper
 dot load
 
 
+# RUST
+export PATH="$PATH:$HOME/.cargo/bin"
+source $HOME/.cargo/env
+
 # GO SETUP
 export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
