@@ -59,10 +59,10 @@ export LOLCOMMITS_DIR="${ICLOUD}/Pictures/lolcommits"
 #   echo "zplug already installed"
 # fi
 
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME="${HOME}/.zplug"
 source ${ZPLUG_HOME}/init.zsh
-zplug "mafredri/zsh-async", from:github
-zplug "lukechilds/zsh-better-npm-completion", from:github
+zplug mafredri/zsh-async, from:github
+zplug lukechilds/zsh-better-npm-completion, from:github
 zplug zsh-users/zsh-syntax-highlighting, from:github
 zplug zsh-users/zsh-autosuggestions, from:github
 zplug zsh-users/zsh-completions, from:github
