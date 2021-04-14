@@ -4,27 +4,60 @@ CURRENT_PID=$$
 CURRENT_USER=$(whoami)
 CURRENT_GROUP=$(id -g -n ${CURRENT_USER})
 TASKS=('xcode-clt' 'yadm' 'dotfiles', 'bootstrap')
-RUN_BOOTSTRAP=false
+
+VERBOSE_MODE=false
+# RUN_BOOTSTRAP=false
+
+for i in "$@"; do
+  case $i in
+    -v | --verbose)
+    VERBOSE_MODE=true
+    shift
+    ;;
+    # -b|--bootstrap)
+    # RUN_BOOTSTRAP=true
+    # shift
+    # ;;
+  esac
+done
 
 logger() {
-  [[ -z $TASK_NAME ]] || (tput bold; tput setaf 4; printf " ${TASK_NAME}: "; tput sgr0)
+  [[ -z $TASK_NAME ]] || (
+    tput bold
+    tput setaf 4
+    printf " ${TASK_NAME}: "
+    tput sgr0
+  )
   printf "$1"
-  [[ -z $2 ]] || (tput setaf 8; printf " [+$2s]"; tput sgr0)
+  [[ -z $2 ]] || (
+    tput setaf 8
+    printf " [+$2s]"
+    tput sgr0
+  )
   printf "\n"
 }
 
-indent() {
-  tput setaf 8
-  sed 's/^/   /'
-  tput sgr0
+format_child_stdout() {
+  if [ "$VERBOSE_MODE" = "true" ]; then
+    tput setaf 8
+    sed 's/^/   /'
+    tput sgr0
+  else
+    sed 's/^//'
+  fi
 }
 
 kill() {
-  ERROR_SOURCE=$TASK_NAME; TASK_NAME=""
-  logger "$(tput setaf 3; tput bold)\n ⚠️  ${ERROR_SOURCE}: ERROR$(tput sgr0)\n something unexpected happend! $(tput sgr0)\n" && sudo kill -s TERM ${CURRENT_PID}
+  ERROR_SOURCE=$TASK_NAME
+  TASK_NAME=""
+  logger "$(
+    tput setaf 3
+    tput bold
+  )\n ⚠️  ${ERROR_SOURCE}: ERROR$(tput sgr0)\n something unexpected happend! $(tput sgr0)\n" && sudo kill -s TERM ${CURRENT_PID}
 }
 
-tput bold; tput setaf 1
+tput bold
+tput setaf 1
 printf "\n .dotfiles environment installer"
 printf "\n ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺"
 printf "\n"
@@ -40,35 +73,37 @@ install_xcode_clt() {
   MESSAGE_SUCCESS="success - command line tools installation finished"
   MESSAGE_FALLBACK="cli installation failed, falling back to gui installation"
 
-  xcode-select -p &> /dev/null
+  xcode-select -p &>/dev/null
   if [ $? -eq 0 ]; then
     logger "${MESSAGE_SKIP}"
   else
     logger "${MESSAGE_INSTALL}"
 
     touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-    softwareupdate -i "$(softwareupdate -l | grep -B 1 -E "Command Line (Developer|Tools)" | awk -F"*" '/^ +\\*/ {print $2}' | sed 's/^ *//' | tail -n1)" | indent
+    softwareupdate -i "$(softwareupdate -l | grep -B 1 -E "Command Line (Developer|Tools)" | awk -F"*" '/^ +\\*/ {print $2}' | sed 's/^ *//' | tail -n1)" | format_child_stdout
     rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-    sudo xcode-select --switch "/Library/Developer/CommandLineTools" | indent
+    sudo xcode-select --switch "/Library/Developer/CommandLineTools" | format_child_stdout
 
-    xcode-select -p &> /dev/null
+    xcode-select -p &>/dev/null
     if [ $? -eq 0 ]; then
       logger "${MESSAGE_SUCCESS}" "$(($SECONDS - $TASK_START))"
     else
       logger "${MESSAGE_FALLBACK}"
 
-      sudo xcode-select --install | indent
-      echo -n "press any key when the installation has completed "; read $KEY; echo -en "\033[1A\033[2K"
+      sudo xcode-select --install | format_child_stdout
+      echo -n "press any key when the installation has completed "
+      read $KEY
+      echo -en "\033[1A\033[2K"
 
-      xcode-select -p &> /dev/null
+      xcode-select -p &>/dev/null
       [[ $? -eq 0 ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
     fi
   fi
 
-  xcode-select -p &> /dev/null; [[ $? -eq 0 ]] || kill
+  xcode-select -p &>/dev/null
+  [[ $? -eq 0 ]] || kill
 }
 install_xcode_clt
-
 
 # YADM
 install_yadm() {
@@ -78,7 +113,7 @@ install_yadm() {
   MESSAGE_INSTALL="installing yadm"
   MESSAGE_SUCCESS="success - yadm is installed now"
 
-  command -v yadm &> /dev/null
+  command -v yadm &>/dev/null
   if [ $? -eq 0 ]; then
     logger "${MESSAGE_SKIP}"
   else
@@ -87,17 +122,17 @@ install_yadm() {
     [ -d /usr/local/bin ] || sudo mkdir -p /usr/local/bin
     sudo chmod 755 /usr/local/bin
     sudo chown ${CURRENT_USER}:${CURRENT_GROUP} /usr/local/bin
-    curl -fLo /usr/local/bin/yadm "https://github.com/TheLocehiliosan/yadm/raw/master/yadm" --silent | indent
+    curl -fLo /usr/local/bin/yadm "https://github.com/TheLocehiliosan/yadm/raw/master/yadm" --silent | format_child_stdout
     [ -f /usr/local/bin/yadm ] && chmod a+x /usr/local/bin/yadm
 
-    command -v yadm &> /dev/null
+    command -v yadm &>/dev/null
     [[ $? -eq 0 ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
   fi
 
-  command -v yadm &> /dev/null; [[ ! $? -eq 0 ]] && kill
+  command -v yadm &>/dev/null
+  [[ ! $? -eq 0 ]] && kill
 }
 install_yadm
-
 
 # DOTFILES
 install_dotfiles() {
@@ -112,8 +147,8 @@ install_dotfiles() {
   else
     logger "${MESSAGE_INSTALL}"
 
-    /usr/local/bin/yadm clone --no-bootstrap "https://github.com/danielheene/dotfiles.git" 2> /dev/null | indent
-    /usr/bin/sed -i '' 's,https://github.com/danielheene/dotfiles.git,git@github.com:danielheene/dotfiles.git,g' "${HOME}/.config/yadm/repo.git/config" 2> /dev/null | indent
+    /usr/local/bin/yadm clone --no-bootstrap "https://github.com/danielheene/dotfiles.git" 2>/dev/null | format_child_stdout
+    /usr/bin/sed -i '' 's,https://github.com/danielheene/dotfiles.git,git@github.com:danielheene/dotfiles.git,g' "${HOME}/.config/yadm/repo.git/config" 2>/dev/null | format_child_stdout
 
     [[ -d ~/.config/yadm ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
   fi
@@ -129,12 +164,12 @@ install_brew() {
   MESSAGE_INSTALL="starting brew installation"
   MESSAGE_SUCCESS="success - brew is successfully installed"
 
-  if [[ -x "$(command -v brew)" ]]; then 
+  if [[ -x "$(command -v brew)" ]]; then
     logger "${MESSAGE_SKIP}"
   else
     logger "${MESSAGE_INSTALL}"
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" 2> /dev/null | indent
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" 2>/dev/null | format_child_stdout
 
     [[ -x "$(command -v brew)" ]] && logger "${MESSAGE_SUCCESS}" $(($SECONDS - $TASK_START))
   fi
