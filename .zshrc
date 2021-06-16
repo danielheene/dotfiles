@@ -14,6 +14,8 @@ export LDFLAGS="-L/usr/local/opt/ncurses/lib"
 export CPPFLAGS="-I/usr/local/opt/ncurses/include"
 
 
+source "${HOME}/.dotfiles/vendor/icons-in-terminal/build/icons_bash.sh"
+
 # LOAD DOT ENVIRONMENT & MODULES
 source ${HOME}/.dotfiles/dot.zsh
 dot install nodejs
@@ -52,15 +54,14 @@ export LOLCOMMITS_DIR="${ICLOUD}/Pictures/lolcommits"
 
 # ZPLUG SETUP
 
-# if [[ ! -d ~/.zplug ]];then
-#   echo "installing zplug"
-#   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-# else
-#   echo "zplug already installed"
-# fi
+export ZPLUG_HOME=${HOME}/.zplug
 
-export ZPLUG_HOME="${HOME}/.zplug"
-source ${ZPLUG_HOME}/init.zsh
+if [[ ! -d ~/.zplug ]];then
+  echo "installing zplug"
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+
+source ~/.zplug/init.zsh
 zplug mafredri/zsh-async, from:github
 zplug lukechilds/zsh-better-npm-completion, from:github
 zplug zsh-users/zsh-syntax-highlighting, from:github

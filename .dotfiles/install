@@ -3,7 +3,7 @@
 CURRENT_PID=$$
 CURRENT_USER=$(whoami)
 CURRENT_GROUP=$(id -g -n ${CURRENT_USER})
-TASKS=('xcode-clt' 'yadm' 'dotfiles', 'bootstrap')
+TASKS=('xcode-clt' 'yadm' 'dotfiles' 'bootstrap')
 
 VERBOSE_MODE=false
 # RUN_BOOTSTRAP=false
@@ -56,7 +56,7 @@ kill() {
   logger "$(
     tput setaf 3
     tput bold
-  )\n ⚠️ ERROR: $(tput sgr0)\n something unexpected happend while installing ${ERROR_SOURCE}!$(tput sgr0)\n" && sudo kill -s TERM ${CURRENT_PID}
+  )\n ERROR: $(tput sgr0)something unexpected happend while installing ${ERROR_SOURCE}!$(tput sgr0)\n" && sudo kill -s TERM ${CURRENT_PID}
 }
 
 tput bold

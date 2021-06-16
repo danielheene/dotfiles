@@ -1,8 +1,2 @@
 {
-  "dependencies": {
-    "do-not-disturb-cli": "latest",
-    "npm-name-cli": "latest",
-    "nx": "latest",
-    "serve": "latest"
-  }
 }
